@@ -23,12 +23,14 @@ while True:
                 break
             else:
                 print("El nombre no puede estar vacío.")
+
         while True:
             categoria = input("Categoría del producto: ").strip()
             if categoria:
                 break
             else:
                 print("La categoría no puede estar vacía.")
+
         while True:
             entrada_precio = input("Precio del producto (número entero): ")
             try:
@@ -39,6 +41,7 @@ while True:
                     print("El precio debe ser mayor que 0.")
             except ValueError:
                 print("Ingresá un número válido.")
+
         productos.append([nombre, categoria, precio])
         print("✅ Producto agregado exitosamente.")
 
@@ -51,12 +54,53 @@ while True:
             for i, producto in enumerate(productos, start=1):
                 nombre, categoria, precio = producto
                 print(f"{i} {nombre} | {categoria} | ${precio}")
+
     elif opcion == "3":
         print("Elegiste: Buscar producto")
+        termino = input("Ingresá el nombre o parte del nombre a buscar: ").strip().lower()
+
+        resultados = []
+
+        for i, producto in enumerate(productos, start=1):
+            nombre, categoria, precio = producto
+            if termino in nombre.lower():
+                resultados.append((i, producto))
+
+        if resultados:
+            print("\n🔎 Resultados encontrados:")
+            for i, producto in resultados:
+                nombre, categoria, precio = producto
+                print(f"{i}. {nombre} | {categoria} | ${precio}")
+        else:
+            print("No se encontraron productos con ese nombre.")
+
     elif opcion == "4":
         print("Elegiste: Eliminar producto")
+
+        if not productos:
+            print("No hay productos para eliminar.")
+        else:
+            print("\n📋 Lista de productos:")
+            for i, producto in enumerate(productos, start=1):
+                nombre, categoria, precio = producto
+                print(f"{i}. {nombre} | {categoria} | ${precio}")
+
+            while True:
+                seleccion = input("Ingresá el número del producto a eliminar: ")
+                try:
+                    indice = int(seleccion)
+                    if 1 <= indice <= len(productos):
+                        producto_eliminado = productos.pop(indice - 1)
+                        print(f"✅ Producto eliminado: {producto_eliminado[0]} | {producto_eliminado[1]} | ${producto_eliminado[2]}")
+                        break
+                    else:
+                        print("Número fuera de rango. Intentá de nuevo.")
+                except ValueError:
+                    print("Ingresá un número válido.")
+
     elif opcion == "5":
         print("Saliendo del programa... ¡Hasta luego!")
-        break  # Esto termina el bucle while
+        break
+
     else:
         print("Opción no válida. Por favor, intentá de nuevo.")
