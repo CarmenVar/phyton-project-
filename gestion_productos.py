@@ -53,6 +53,23 @@ while True:
                 print(f"{i} {nombre} | {categoria} | ${precio}")
     elif opcion == "3":
         print("Elegiste: Buscar producto")
+        termino = input("Ingresá el nombre o parte del nombre a buscar: ").strip().lower()
+
+        resultados = []
+
+        for i, producto in enumerate(productos, start=1):
+            nombre, categoria, precio = producto
+            if termino in nombre.lower():
+                resultados.append((i, producto))
+
+        if resultados:
+            print("\n🔎 Resultados encontrados:")
+            for i, producto in resultados:
+                nombre, categoria, precio = producto
+                print(f"{i}. {nombre} | {categoria} | ${precio}")
+        else:
+            print("No se encontraron productos con ese nombre.")
+
     elif opcion == "4":
         print("Elegiste: Eliminar producto")
     elif opcion == "5":
