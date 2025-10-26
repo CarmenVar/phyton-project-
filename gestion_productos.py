@@ -72,6 +72,26 @@ while True:
 
     elif opcion == "4":
         print("Elegiste: Eliminar producto")
+        if not productos:
+            print("No hay productos para eliminar.")
+        else:
+            print("\n📋 Lista de productos:")
+            for i, producto in enumerate(productos, start=1):
+                nombre, categoria, precio = producto
+                print(f"{i}. {nombre} | {categoria} | ${precio}")
+
+            while True:
+                seleccion = input("Ingresá el número del producto a eliminar: ")
+                try:
+                    indice = int(seleccion)
+                    if 1 <= indice <= len(productos):
+                        producto_eliminado = productos.pop(indice - 1)
+                        print(f"✅ Producto eliminado: {producto_eliminado[0]} | {producto_eliminado[1]} | ${producto_eliminado[2]}")
+                        break
+                    else:
+                        print("Número fuera de rango. Intentá de nuevo.")
+                except ValueError:
+                    print("Ingresá un número válido.")
     elif opcion == "5":
         print("Saliendo del programa... ¡Hasta luego!")
         break  # Esto termina el bucle while
